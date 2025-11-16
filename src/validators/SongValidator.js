@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const ValidationError = require('../errors/ValidationError');
 
 const SongSchema = Joi.object({
     title: Joi.string().required(),
@@ -9,9 +10,13 @@ const SongSchema = Joi.object({
     albumId: Joi.string().optional().allow(null)
 });
 
-function validateSong(payload) {
-  const { error } = SongSchema.validate(payload);
-  if (error) throw new ValidationError(error.message);
+class SongValidator {
+  static validatePayload(payload) {
+    const { error } = SongSchema.validate(payload);
+    if (error) {
+      throw new ValidationError(error.message);
+    }
+  }
 }
 
-module.exports = { validateSong };
+module.exports = SongValidator;

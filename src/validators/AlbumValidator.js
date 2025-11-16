@@ -6,9 +6,13 @@ const AlbumSchema = Joi.object({
     year: Joi.number().integer().required()
 });
 
-function validateAlbum(payload) {
+class AlbumValidator {
+  static validatePayload(payload) {
     const { error } = AlbumSchema.validate(payload);
-    if (error) throw new ValidationError(error.message)
+    if (error) {
+      throw new ValidationError(error.message);
+    }
+  }
 }
 
-module.exports = { validateAlbum }
+module.exports = { AlbumValidator }

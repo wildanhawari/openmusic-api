@@ -8,18 +8,18 @@ const createAlbumRoutes = (albumController) => {
   router.post(
     '/albums',
     validate(AlbumValidator),
-    albumController.create.bind(albumController)
+    albumController.createAlbum.bind(albumController)
   );
 
-  router.get('/albums/:id', albumController.getById.bind(albumController));
+  router.get('/albums/:id', albumController.getAlbumById.bind(albumController));
 
   router.put(
     '/albums/:id',
     validate(AlbumValidator),
-    albumController.update.bind(albumController)
+    albumController.updateAlbum.bind(albumController)
   );
 
-  router.delete('/albums/:id', albumController.delete.bind(albumController));
+  router.delete('/albums/:id', albumController.deleteAlbum.bind(albumController));
 
   return router;
 };

@@ -3,15 +3,36 @@ const { generateSongId } = require('../utils/idGenerator');
 const NotFoundError = require('../errors/NotFoundError');
 
 class SongRepository {
-    async addSong({title, year, genre, performer, duration, albumId}) {
+    async createSong({title, year, genre, performer, duration, albumId}) {
         const id = generateSongId();
-        await pool.query('INSERT INTO songs VALUES ($1, $2, $3, $4, $5, $6)', 
-            [title, year, genre, performer, duration, albumId]);
+        await pool.query('INSERT INTO songs VALUES ($1, $2, $3, $4, $5, $6, $7', 
+            [id, title, year, genre, performer, duration, albumId]);
         return id
     }
 
-    async getSongs() {
-        const result = await pool.query('SELECT * FROM songs');
+    async getSongs(filters = {}) {
+        let query = 'SELECT id, title, performer FROM songs';
+        const conditions = [];
+        const values = [];
+        let paramCount = 1;
+
+        if (filters.title) {
+            conditions.push(`title ILIKE $${paramCount}`);
+            values.push(`%${filters.title}%`);
+            paramCount++;
+        }
+
+        if (filters.performer) {
+            conditions.push(`performer ILIKE $${paramCount}`);
+            values.push(`%${filters.performer}%`);
+            paramCount++;
+        }
+
+        if (conditions.length > 0) {
+            query += ' WHERE ' + conditions.join(' AND ');
+        }
+
+        const result = await pool.query(query, values);
         return result.rows;
     }
 

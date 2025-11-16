@@ -4,30 +4,30 @@ class SongService {
     this.idGenerator = idGenerator;
   }
 
-  async addSong({ title, year, genre, performer, duration, albumId }) {
+  async createSong({ title, year, genre, performer, duration, albumId }) {
     const songId = this.idGenerator.generateId('song');
-    await this.songRepository.create(
+    await this.songRepository.createSong(
       songId,
       title,
       year,
       genre,
       performer,
-      duration,
-      albumId
+      duration || null,
+      albumId || null
     );
     return songId;
   }
 
-  async getSongs(filters) {
-    return this.songRepository.findAll(filters);
+  async getSongs(filters = {}) {
+    return this.songRepository.getSongs(filters);
   }
 
   async getSongById(id) {
-    return this.songRepository.findById(id);
+    return this.songRepository.getSongById(id);
   }
 
   async updateSong(id, { title, year, genre, performer, duration, albumId }) {
-    await this.songRepository.update(
+    await this.songRepository.updateSong(
       id,
       title,
       year,
@@ -39,7 +39,7 @@ class SongService {
   }
 
   async deleteSong(id) {
-    await this.songRepository.deleteById(id);
+    await this.songRepository.deleteSong(id);
   }
 }
 

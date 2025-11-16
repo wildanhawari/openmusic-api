@@ -6,7 +6,7 @@ class SongController {
         this.songService = songService;
     }
     
-    async addSong(req, res, next) {
+    async createSong(req, res, next) {
         try {
             const id = await this.songService.createSong(req.body);
             res.status(201).json({ status: 'success',  data: { songId: id }});
@@ -17,8 +17,19 @@ class SongController {
 
     async getSongs(req, res, next) {
         try {
-            const songs = await this.songService.getSongs(req.body);
-            res.json({ status: 'success', data: { songs } })
+        const filters = {};
+        if (req.query.title) {
+            filters.title = req.query.title;
+        }
+        if (req.query.performer) {
+            filters.performer = req.query.performer;
+        }
+
+        const songs = await this.songService.getSongs(filters);
+        res.json({
+            status: 'success',
+            data: { songs }
+        });
         } catch (err) {
             next(err);
         }
@@ -26,7 +37,7 @@ class SongController {
 
     async getSongById(req, res, next) {
         try {
-            const song = await this.songService.getSongById(req.body);
+            const song = await this.songService.getSongById(req.params.id);
             res.json({ status: 'success', data: { song } });
         } catch (err) {
             next(err);
@@ -44,7 +55,7 @@ class SongController {
 
     async deleteSong(req, res, next) {
         try {
-            await this.songService.deleteSong(req.params.id, req.body);
+            await this.songService.deleteSong(req.params.id);
             res.json({ status: 'success', message: 'Song berhasil dihapus' });
         } catch (err) {
             

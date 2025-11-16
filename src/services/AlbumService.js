@@ -4,22 +4,22 @@ class AlbumService {
     this.idGenerator = idGenerator;
   }
 
-  async addAlbum({ name, year }) {
+  async createAlbum({ name, year }) {
     const albumId = this.idGenerator.generateId('album');
-    await this.albumRepository.create(albumId, name, year);
+    await this.albumRepository.createAlbum(albumId, name, year);
     return albumId;
   }
 
   async getAlbumById(id) {
-    return this.albumRepository.findById(id);
+    return this.albumRepository.getAlbumById(id);
   }
 
   async updateAlbum(id, { name, year }) {
-    await this.albumRepository.update(id, name, year);
+    await this.albumRepository.updateAlbum(id, name, year);
   }
 
   async deleteAlbum(id) {
-    await this.albumRepository.deleteById(id);
+    await this.albumRepository.deleteAlbum(id);
   }
 }
 

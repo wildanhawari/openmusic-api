@@ -8,20 +8,20 @@ const createSongRoutes = (songController) => {
   router.post(
     '/songs',
     validate(SongValidator),
-    songController.create.bind(songController)
+    songController.createSong.bind(songController)
   );
 
-  router.get('/songs', songController.getAll.bind(songController));
+  router.get('/songs', songController.getSongs.bind(songController));
 
-  router.get('/songs/:id', songController.getById.bind(songController));
+  router.get('/songs/:id', songController.getSongById.bind(songController));
 
   router.put(
     '/songs/:id',
     validate(SongValidator),
-    songController.update.bind(songController)
+    songController.updateSong.bind(songController)
   );
 
-  router.delete('/songs/:id', songController.delete.bind(songController));
+  router.delete('/songs/:id', songController.deleteSong.bind(songController));
 
   return router;
 };
