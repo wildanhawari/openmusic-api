@@ -5,7 +5,7 @@ class SongService {
   }
 
   async createSong({ title, year, genre, performer, duration, albumId }) {
-    const songId = this.idGenerator.generateId('song');
+    const songId = this.idGenerator.generateSongId();
     await this.songRepository.createSong(
       songId,
       title,

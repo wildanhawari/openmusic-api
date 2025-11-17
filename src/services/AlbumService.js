@@ -5,7 +5,7 @@ class AlbumService {
   }
 
   async createAlbum({ name, year }) {
-    const albumId = this.idGenerator.generateId('album');
+    const albumId = this.idGenerator.generateAlbumId();
     await this.albumRepository.createAlbum(albumId, name, year);
     return albumId;
   }

@@ -58,7 +58,7 @@ class SongController {
             await this.songService.deleteSong(req.params.id);
             res.json({ status: 'success', message: 'Song berhasil dihapus' });
         } catch (err) {
-            
+            next(err);
         }
     }
 }

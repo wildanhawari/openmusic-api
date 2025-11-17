@@ -18,7 +18,7 @@ class AlbumController {
 
     async getAlbumById(req, res, next) {
         try {
-            const album = await this.albumsService.getAlbumById(req.body)
+            const album = await this.albumsService.getAlbumById(req.params.id)
             res.json({ status: 'success', data: { album } });
         } catch (err) {
             next(err);
@@ -37,7 +37,7 @@ class AlbumController {
     async deleteAlbum(req, res, next) {
         try {
             await this.albumsService.deleteAlbum(req.params.id);
-            res.json({ status: 'status', message: 'Album berhasil dihapus' });
+            res.json({ status: 'success', message: 'Album berhasil dihapus' });
         } catch (err) {
             next(err);
         }

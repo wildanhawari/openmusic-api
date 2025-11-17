@@ -15,4 +15,4 @@ class AlbumValidator {
   }
 }
 
-module.exports = { AlbumValidator }
+module.exports = AlbumValidator
