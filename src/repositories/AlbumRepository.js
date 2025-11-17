@@ -34,12 +34,16 @@ class AlbumRepository {
       'UPDATE albums SET name=$1, year=$2 WHERE id=$3 RETURNING id',
       [name, year, id]
     );
-    if (!result.rowCount) throw new NotFoundError('Album tidak ditemukan');
+    if (!result.rowCount) {
+      throw new NotFoundError('Album tidak ditemukan');
+    }
   }
 
   async deleteAlbum(id) {
     const result = await this.pool.query('DELETE FROM albums WHERE id=$1', [id]);
-    if (!result.rowCount) throw new NotFoundError('Album tidak ditemukan');
+    if (!result.rowCount) {
+      throw new NotFoundError('Album tidak ditemukan');
+    }
   }
 }
 

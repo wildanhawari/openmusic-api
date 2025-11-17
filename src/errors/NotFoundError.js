@@ -6,4 +6,5 @@ class NotFoundError extends BaseError {
     this.name = 'NotFoundError';
   }
 }
+
 module.exports = NotFoundError;

@@ -39,7 +39,9 @@ class SongRepository {
 
   async getSongById(id) {
     const result = await this.pool.query('SELECT * FROM songs WHERE id = $1', [id]);
-    if (!result.rowCount) throw new NotFoundError('Song tidak ditemukan');
+    if (!result.rowCount) {
+      throw new NotFoundError('Song tidak ditemukan');
+    }
     return result.rows[0];
   }
 
@@ -48,12 +50,16 @@ class SongRepository {
       'UPDATE songs SET title=$1, year=$2, genre=$3, performer=$4, duration=$5, "albumId"=$6 WHERE id=$7 RETURNING id',
       [title, year, genre, performer, duration, albumId, id]
     );
-    if (!result.rowCount) throw new NotFoundError('Song tidak ditemukan');
+    if (!result.rowCount) {
+      throw new NotFoundError('Song tidak ditemukan');
+    }
   }
 
   async deleteSong(id) {
     const result = await this.pool.query('DELETE FROM songs WHERE id=$1 RETURNING id', [id]);
-    if (!result.rowCount) throw new NotFoundError('Song tidak ditemukan');
+    if (!result.rowCount) {
+      throw new NotFoundError('Song tidak ditemukan');
+    }
   }
 }
 

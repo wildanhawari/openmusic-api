@@ -6,4 +6,5 @@ class ValidationError extends BaseError {
     this.name = 'ValidationError';
   }
 }
+
 module.exports = ValidationError;
