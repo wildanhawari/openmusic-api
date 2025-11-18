@@ -1,14 +1,14 @@
 /**
  * @type {import('node-pg-migrate').ColumnDefinitions | undefined}
  */
-export const shorthands = undefined;
+exports.shorthands = undefined;
 
 /**
  * @param pgm {import('node-pg-migrate').MigrationBuilder}
  * @param run {() => void | undefined}
  * @returns {Promise<void> | void}
  */
-export const up = (pgm) => {
+exports.up = (pgm) => {
   pgm.createTable('albums', {
     id: { type: 'varchar(50)', primaryKey: true },
     name: { type: 'varchar(255)', notNull: true },
@@ -21,4 +21,4 @@ export const up = (pgm) => {
  * @param run {() => void | undefined}
  * @returns {Promise<void> | void}
  */
-export const down = (pgm) => { pgm.dropTable('albums'); };
+exports.down = (pgm) => { pgm.dropTable('albums'); };

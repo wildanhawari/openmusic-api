@@ -21,10 +21,7 @@ class AlbumRepository {
       'SELECT id, title, performer FROM songs WHERE "albumId" = $1',
       [id]
     );
-
-    if (!songsResult.rowCount) {
-      album.songs = songsResult.rows;
-    }
+    album.songs = songsResult.rows;
 
     return album;
   }

@@ -1,6 +1,10 @@
 const BaseError = require('../errors/BaseError');
 
-const errorHandler = (err, req, res) => {
+const errorHandler = (err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err);
+  }
+
   if (err instanceof BaseError) {
     return res.status(err.statusCode).json({
       status: 'fail',

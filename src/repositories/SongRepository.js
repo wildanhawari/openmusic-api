@@ -6,7 +6,7 @@ class SongRepository {
   }
 
   async createSong(id, title, year, genre, performer, duration, albumId) {
-    await this.this.pool.query('INSERT INTO songs VALUES ($1, $2, $3, $4, $5, $6, $7)',
+    await this.pool.query('INSERT INTO songs VALUES ($1, $2, $3, $4, $5, $6, $7)',
       [id, title, year, genre, performer, duration, albumId]);
     return id;
   }
