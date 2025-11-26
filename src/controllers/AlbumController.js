@@ -1,7 +1,3 @@
-// const AlbumService = require('../services/AlbumService');
-// const AlbumsService = require('../services/albumsService');
-// const albumsService = new AlbumService;
-
 class AlbumController {
   constructor(albumsService) {
     this.albumsService = albumsService;

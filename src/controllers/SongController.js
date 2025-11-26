@@ -1,6 +1,3 @@
-// const SongService = require('../services/SongService');
-// const songService = new SongService();
-
 class SongController {
   constructor(songService) {
     this.songService = songService;

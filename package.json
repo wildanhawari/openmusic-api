@@ -1,5 +1,5 @@
 {
-  "name": "openmusic-api-v1",
+  "name": "openmusic-api",
   "version": "1.0.0",
   "description": "",
   "type": "commonjs",
@@ -22,9 +22,11 @@
   },
   "homepage": "https://github.com/wildanhawari/openmusic-api#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "joi": "^18.0.1",
+    "jsonwebtoken": "^9.0.2",
     "nanoid": "^5.1.6",
     "pg": "^8.16.3"
   },
