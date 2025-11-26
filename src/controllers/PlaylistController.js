@@ -100,6 +100,22 @@ class PlaylistController {
       next(err);
     }
   }
+
+  async getPlaylistActivities(req, res, next) {
+    try {
+      const { id: playlistId } = req.params;
+      const { userId } = req.user;
+
+      const data = await this.playlistService.getPlaylistActivities(playlistId, userId);
+
+      res.json({
+        status: 'success',
+        data,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = PlaylistController;

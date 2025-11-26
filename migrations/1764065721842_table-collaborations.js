@@ -10,6 +10,7 @@ exports.shorthands = undefined;
  */
 exports.up = (pgm) => {
   pgm.createTable('collaborations', {
+    id: { type: 'varchar(50)', primaryKey: true },
     playlistId: { type: 'varchar(50)', references: 'playlists(id)', onDelete: 'CASCADE', notNull: true },
     userId: { type: 'varchar(50)', references: 'users(id)', onDelete: 'CASCADE', notNull: true },
   });

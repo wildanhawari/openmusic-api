@@ -50,6 +50,12 @@ const createPlaylistRoutes = (playlistController) => {
     }
   });
 
+  router.get(
+    '/playlists/:id/activities',
+    authenticate,
+    playlistController.getPlaylistActivities.bind(playlistController)
+  );
+
   return router;
 };
 

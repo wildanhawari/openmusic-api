@@ -20,7 +20,9 @@ class PlaylistRepository {
       `SELECT p.id, p.name, u.username 
        FROM playlists p
        LEFT JOIN users u ON p.owner = u.id
-       WHERE p.owner = $1`,
+       LEFT JOIN collaborations c ON c."playlistId" = p.id
+       WHERE p.owner = $1 OR c."userId" = $1
+       GROUP BY p.id, u.username`,
       [owner]
     );
     return result.rows;

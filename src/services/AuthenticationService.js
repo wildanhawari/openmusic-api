@@ -26,7 +26,7 @@ class AuthenticationService {
 
   async deleteAuthentication(refreshToken) {
     await this.authenticationRepository.verifyRefreshToken(refreshToken);
-    await this.authenticationRepository.deleteRefreshToken;
+    await this.authenticationRepository.deleteRefreshToken(refreshToken);
   }
 }
 
