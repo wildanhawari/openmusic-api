@@ -1,7 +1,8 @@
 class AlbumService {
-  constructor(albumRepository, idGenerator) {
+  constructor(albumRepository, idGenerator, cacheService) {
     this.albumRepository = albumRepository;
     this.idGenerator = idGenerator;
+    this.cacheService = cacheService;
   }
 
   async createAlbum({ name, year }) {
@@ -20,6 +21,44 @@ class AlbumService {
 
   async deleteAlbum(id) {
     await this.albumRepository.deleteAlbum(id);
+  }
+
+  async updateAlbumCover(id, coverUrl) {
+    await this.albumRepository.updateAlbumCover(id, coverUrl);
+  }
+
+  async likeAlbum(userId, albumId) {
+    const likeId = this.idGenerator.generateLikeId();
+    await this.albumRepository.addLike(likeId, userId, albumId);
+    await this.cacheService.delete(`likes:${albumId}`);
+  }
+
+  async unlikeAlbum(userId, albumId) {
+    await this.albumRepository.deleteLike(userId, albumId);
+    await this.cacheService.delete(`likes:${albumId}`);
+  }
+
+  async getAlbumLikes(albumId) {
+    try {
+      const result = await this.cacheService.get(`likes:${albumId}`);
+      if (result) {
+        return {
+          likes: JSON.parse(result),
+          isCache: true,
+        };
+      }
+    } catch (error) {
+
+    }
+
+    const likes = await this.albumRepository.getLikesCount(albumId);
+
+    await this.cacheService.set(`likes:${albumId}`, JSON.stringify(likes));
+
+    return {
+      likes,
+      isCache: false,
+    };
   }
 }
 
