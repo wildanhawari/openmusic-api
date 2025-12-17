@@ -8,12 +8,10 @@ class CollaborationRepository {
 
   async addCollaboration(playlistId, userId) {
     const id = `collab-${nanoid(16)}`;
-    const query = {
-      text: 'INSERT INTO collaborations VALUES($1, $2, $3) RETURNING id',
-      values: [id, playlistId, userId],
-    };
 
-    const result = await this.pool.query(query);
+    const result = await this.pool.query('INSERT INTO collaborations VALUES($1, $2, $3) RETURNING id',
+      [id, playlistId, userId]
+    );
 
     if (!result.rowCount) {
       throw new ValidationError('Kolaborasi gagal ditambahkan');
@@ -22,12 +20,9 @@ class CollaborationRepository {
   }
 
   async deleteCollaboration(playlistId, userId) {
-    const query = {
-      text: 'DELETE FROM collaborations WHERE "playlistId" = $1 AND "userId" = $2 RETURNING id',
-      values: [playlistId, userId],
-    };
-
-    const result = await this.pool.query(query);
+    const result = await this.pool.query('DELETE FROM collaborations WHERE "playlistId" = $1 AND "userId" = $2 RETURNING id',
+      [playlistId, userId]
+    );
 
     if (!result.rowCount) {
       throw new ValidationError('Kolaborasi gagal dihapus');
@@ -35,12 +30,9 @@ class CollaborationRepository {
   }
 
   async verifyCollaborator(playlistId, userId) {
-    const query = {
-      text: 'SELECT * FROM collaborations WHERE "playlistId" = $1 AND "userId" = $2',
-      values: [playlistId, userId],
-    };
-
-    const result = await this.pool.query(query);
+    const result = await this.pool.query('SELECT * FROM collaborations WHERE "playlistId" = $1 AND "userId" = $2',
+      [playlistId, userId]
+    );
 
     if (!result.rowCount) {
       throw new ValidationError('Kolaborasi tidak verifikasi');

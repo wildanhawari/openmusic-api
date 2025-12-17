@@ -16,7 +16,7 @@ const tokenManager = {
     try {
       const artifacts = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_KEY);
       return artifacts;
-    } catch (err) {
+    } catch {
       throw new ValidationError('Refresh token tidak valid');
     }
   },
@@ -25,7 +25,7 @@ const tokenManager = {
     try {
       const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_KEY);
       return decoded;
-    } catch (err) {
+    } catch {
       throw new ValidationError('Access token tidak valid');
     }
   },
