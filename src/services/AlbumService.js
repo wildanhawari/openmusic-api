@@ -47,8 +47,8 @@ class AlbumService {
           isCache: true,
         };
       }
-    } catch (error) {
-
+    } catch {
+      // Cache unavailable, fallback to database
     }
 
     const likes = await this.albumRepository.getLikesCount(albumId);
